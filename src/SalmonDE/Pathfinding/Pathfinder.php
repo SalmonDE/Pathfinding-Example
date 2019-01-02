@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace SalmonDE\Pathfinding;
 
+use pocketmine\block\Block;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
@@ -28,8 +29,8 @@ class Pathfinder extends PluginBase {
                 return \false;
             }
 
-            $sender->level->setBlockIdAt($this->pos1->x, $this->pos1->y, $this->pos1->z, 0);
-            $sender->level->setBlockIdAt($this->pos2->x, $this->pos2->y, $this->pos2->z, 0);
+            $sender->level->setBlockAt($this->pos1->x, $this->pos1->y, $this->pos1->z, Block::get(Block::AIR));
+            $sender->level->setBlockAt($this->pos2->x, $this->pos2->y, $this->pos2->z, Block::get(Block::AIR));
 
             $pathfinder = new AStar($sender->level, $this->pos1, $this->pos2);
             $sender->sendMessage('[A*] Calculating ...');
@@ -41,15 +42,15 @@ class Pathfinder extends PluginBase {
             }else{
                 do{
                     if(($node = $node->getPredecessor()) instanceof Node){
-                        $sender->level->setBlockIdAt($node->x, $node->y, $node->z, 41);
+                        $sender->level->setBlockAt($node->x, $node->y, $node->z, Block::get(Block::GOLD_BLOCK));
                     }else{
                         break;
                     }
                 }while(\true);
             }
 
-            $sender->level->setBlockIdAt($this->pos1->x, $this->pos1->y, $this->pos1->z, 57);
-            $sender->level->setBlockIdAt($this->pos2->x, $this->pos2->y, $this->pos2->z, 133);
+            $sender->level->setBlockAt($this->pos1->x, $this->pos1->y, $this->pos1->z, Block::get(Block::DIAMOND_BLOCK));
+            $sender->level->setBlockAt($this->pos2->x, $this->pos2->y, $this->pos2->z, Block::get(Block::EMERALD_BLOCK));
         }else{
             return \false;
         }
