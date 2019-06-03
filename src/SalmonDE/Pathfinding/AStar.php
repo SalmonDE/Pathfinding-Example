@@ -20,7 +20,7 @@ class AStar {
     protected const G_COST = 1;
 
     public function __construct(World $world, Vector3 $startPos, Vector3 $targetPos){
-        $this->level = $world;
+        $this->world = $world;
         $this->startNode = Node::fromVector3($startPos);
         $this->targetNode = Node::fromVector3($targetPos);
         $this->targetNode->setH(0);
