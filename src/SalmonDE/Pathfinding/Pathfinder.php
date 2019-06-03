@@ -29,10 +29,10 @@ class Pathfinder extends PluginBase {
                 return \false;
             }
 
-            $sender->world->setBlockAt($this->pos1->x, $this->pos1->y, $this->pos1->z, Block::get(Block::AIR));
-            $sender->world->setBlockAt($this->pos2->x, $this->pos2->y, $this->pos2->z, Block::get(Block::AIR));
+            $sender->level->setBlockAt($this->pos1->x, $this->pos1->y, $this->pos1->z, Block::get(Block::AIR));
+            $sender->level->setBlockAt($this->pos2->x, $this->pos2->y, $this->pos2->z, Block::get(Block::AIR));
 
-            $pathfinder = new AStar($sender->world, $this->pos1, $this->pos2);
+            $pathfinder = new AStar($sender->level, $this->pos1, $this->pos2);
             $sender->sendMessage('[A*] Calculating ...');
             $node = $pathfinder->findPath();
             $sender->sendMessage('[A*] Done.');
@@ -42,15 +42,15 @@ class Pathfinder extends PluginBase {
             }else{
                 do{
                     if(($node = $node->getPredecessor()) instanceof Node){
-                        $sender->world->setBlockAt($node->x, $node->y, $node->z, Block::get(Block::GOLD_BLOCK));
+                        $sender->level->setBlockAt($node->x, $node->y, $node->z, Block::get(Block::GOLD_BLOCK));
                     }else{
                         break;
                     }
                 }while(\true);
             }
 
-            $sender->world->setBlockAt($this->pos1->x, $this->pos1->y, $this->pos1->z, Block::get(Block::DIAMOND_BLOCK));
-            $sender->world->setBlockAt($this->pos2->x, $this->pos2->y, $this->pos2->z, Block::get(Block::EMERALD_BLOCK));
+            $sender->level->setBlockAt($this->pos1->x, $this->pos1->y, $this->pos1->z, Block::get(Block::DIAMOND_BLOCK));
+            $sender->level->setBlockAt($this->pos2->x, $this->pos2->y, $this->pos2->z, Block::get(Block::EMERALD_BLOCK));
         }else{
             return \false;
         }
