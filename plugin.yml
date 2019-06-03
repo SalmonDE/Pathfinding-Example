@@ -2,7 +2,7 @@ name: Pathfinder
 version: 1.0.0
 author: SalmonDE
 main: SalmonDE\Pathfinding\Pathfinder
-api: [4.0.0]
+api: [3.0.0]
 commands:
     a*:
         usage: /a* <1|2|calculate>
