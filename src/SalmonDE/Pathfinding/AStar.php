@@ -3,12 +3,12 @@ declare(strict_types = 1);
 
 namespace SalmonDE\Pathfinding;
 
-use pocketmine\level\Level;
+use pocketmine\world\World;
 use pocketmine\math\Vector3;
 
 class AStar {
 
-    private $level;
+    private $world;
 
     private $startNode;
     private $targetNode;
@@ -19,8 +19,8 @@ class AStar {
 
     protected const G_COST = 1;
 
-    public function __construct(Level $level, Vector3 $startPos, Vector3 $targetPos){
-        $this->level = $level;
+    public function __construct(World $world, Vector3 $startPos, Vector3 $targetPos){
+        $this->level = $world;
         $this->startNode = Node::fromVector3($startPos);
         $this->targetNode = Node::fromVector3($targetPos);
         $this->targetNode->setH(0);
@@ -43,7 +43,7 @@ class AStar {
     public function findPath(): ?Node{
         $this->startNode->setG(0.0);
         $this->startNode->setH($this->calculateEstimatedCost($this->startNode));
-        $this->openList[Level::blockHash($this->startNode->x, $this->startNode->y, $this->startNode->z)] = $this->startNode;
+        $this->openList[World::blockHash($this->startNode->x, $this->startNode->y, $this->startNode->z)] = $this->startNode;
         $this->openListHeap->insert($this->startNode);
 
         $operations = 0;
@@ -53,7 +53,7 @@ class AStar {
             }
 
             $currentNode = $this->openListHeap->extract();
-            unset($this->openList[$hash = Level::blockHash($currentNode->x, $currentNode->y, $currentNode->z)]);
+            unset($this->openList[$hash = World::blockHash($currentNode->x, $currentNode->y, $currentNode->z)]);
             $this->closedList[$hash] = $currentNode;
 
             if($currentNode->equals($this->targetNode)){
@@ -61,10 +61,10 @@ class AStar {
                 return $this->targetNode;
             }
 
-            $block = $this->level->getBlockAt($currentNode->x, $currentNode->y, $currentNode->z);
+            $block = $this->world->getBlockAt($currentNode->x, $currentNode->y, $currentNode->z);
 
             foreach($block->getAllSides() as $neighbour){
-                if($neighbour->isSolid() || $neighbour->y < 0 || $neighbour->y > 255 || isset($this->closedList[$neighbourHash = Level::blockHash($neighbour->x, $neighbour->y, $neighbour->z)])){
+                if($neighbour->isSolid() || $neighbour->y < 0 || $neighbour->y > 255 || isset($this->closedList[$neighbourHash = World::blockHash($neighbour->x, $neighbour->y, $neighbour->z)])){
                     continue;
                 }
 
