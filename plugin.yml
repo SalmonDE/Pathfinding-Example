@@ -1,7 +1,7 @@
-name: Pathfinder
+name: PathfinderExample
 version: 1.0.0
 author: SalmonDE
-main: SalmonDE\Pathfinding\Pathfinder
+main: SalmonDE\PathfindingExample\Main
 api: [3.0.0]
 commands:
     a*:
