@@ -8,6 +8,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
 use salmonde\pathfinding\Pathfinder;
+use salmonde\pathfinding\astar\selector\NeighbourSelectorXZ;
 
 class Main extends PluginBase {
 
@@ -37,7 +38,7 @@ class Main extends PluginBase {
 
 			if(isset($params[1])){
 				if(strtolower($params[1]) === '2d'){
-					$pathfinder->getAlgorithm()->set2D();
+					$pathfinder->getAlgorithm()->setNeighbourSelector(new NeighbourSelectorXZ());
 				}
 			}
 
@@ -66,7 +67,7 @@ class Main extends PluginBase {
 
 			if(isset($params[1])){
 				if(strtolower($params[1]) === '2d'){
-					$pathfinder->getAlgorithm()->set2D();
+					$pathfinder->getAlgorithm()->setNeighbourSelector(new NeighbourSelectorXZ());
 				}
 			}
 
