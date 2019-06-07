@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace SalmonDE\PathfindingExample;
 
 use pocketmine\level\particle\DustParticle;
-use pocketmine\level\particle\WaterDripParticle;
+use pocketmine\level\particle\LavaDripParticle;
 use pocketmine\scheduler\Task;
 use salmonde\pathfinding\Pathfinder;
 use salmonde\pathfinding\PathResult;
@@ -28,7 +28,7 @@ class PathVisualizerTask extends Task {
 
 		$world = $this->pathfinder->getAlgorithm()->getWorld();
 		foreach($path as $pos){
-			$particle = new WaterDripParticle($pos->add(0.5, 0.5, 0.5), 255, 0, 0);
+			$particle = new LavaDripParticle($pos->add(0.5, 0.5, 0.5), 255, 0, 0);
 			$world->addParticle($particle);
 		}
 
