@@ -1,9 +1,9 @@
 name: PathfinderExample
-version: 1.0.0
+version: 1.1.0
 author: SalmonDE
 main: SalmonDE\PathfindingExample\Main
 api: [3.0.0]
 commands:
     a*:
-        usage: /a* <1|2|calculate>
+        usage: /a* <1|2|calculate|repeat|clear> [2d]
         permission: a*
