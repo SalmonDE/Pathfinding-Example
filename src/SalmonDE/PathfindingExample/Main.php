@@ -31,10 +31,10 @@ class Main extends PluginBase {
 				return false;
 			}
 
-			$sender->getLevel()->setBlock($this->pos1, Block::get(Block::AIR));
-			$sender->getLevel()->setBlock($this->pos2, Block::get(Block::AIR));
+			$sender->getWorld()->setBlock($this->pos1, Block::get(Block::AIR));
+			$sender->getWorld()->setBlock($this->pos2, Block::get(Block::AIR));
 
-			$pathfinder = new Pathfinder($sender->getLevel(), $this->pos1, $this->pos2);
+			$pathfinder = new Pathfinder($sender->getWorld(), $this->pos1, $this->pos2);
 
 			if(isset($params[1])){
 				if(strtolower($params[1]) === '2d'){
@@ -52,18 +52,18 @@ class Main extends PluginBase {
 				return true;
 			}else{
 				foreach($result as $block){
-					$sender->getLevel()->setBlock($block, Block::get(Block::GOLD_BLOCK));
+					$sender->getWorld()->setBlock($block, Block::get(Block::GOLD_BLOCK));
 				}
 			}
 
-			$sender->getLevel()->setBlock($this->pos1, Block::get(Block::DIAMOND_BLOCK));
-			$sender->getLevel()->setBlock($this->pos2, Block::get(Block::EMERALD_BLOCK));
+			$sender->getWorld()->setBlock($this->pos1, Block::get(Block::DIAMOND_BLOCK));
+			$sender->getWorld()->setBlock($this->pos2, Block::get(Block::EMERALD_BLOCK));
 		}elseif($params[0] === 'repeat'){
 			if($this->pos1 === null || $this->pos2 === null){
 				return false;
 			}
 
-			$pathfinder = new Pathfinder($sender->getLevel(), $this->pos1, $this->pos2);
+			$pathfinder = new Pathfinder($sender->getWorld(), $this->pos1, $this->pos2);
 
 			if(isset($params[1])){
 				if(strtolower($params[1]) === '2d'){
