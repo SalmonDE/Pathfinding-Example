@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace SalmonDE\PathfindingExample;
 
-use pocketmine\block\Block;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
@@ -21,18 +21,18 @@ class Main extends PluginBase {
 		}
 
 		if($params[0] === '1'){
-			$this->pos1 = $sender->floor();
+			$this->pos1 = $sender->getPosition()->floor();
 			$sender->sendMessage('[A*] Pos 1 set');
 		}elseif($params[0] === '2'){
-			$this->pos2 = $sender->floor();
+			$this->pos2 = $sender->getPosition()->floor();
 			$sender->sendMessage('[A*] Pos 2 set');
 		}elseif($params[0] === 'calculate'){
 			if($this->pos1 === null || $this->pos2 === null){
 				return false;
 			}
 
-			$sender->getWorld()->setBlock($this->pos1, Block::get(Block::AIR));
-			$sender->getWorld()->setBlock($this->pos2, Block::get(Block::AIR));
+			$sender->getWorld()->setBlock($this->pos1, VanillaBlocks::AIR());
+			$sender->getWorld()->setBlock($this->pos2, VanillaBlocks::AIR());
 
 			$pathfinder = new Pathfinder($sender->getWorld(), $this->pos1, $this->pos2);
 
@@ -56,8 +56,8 @@ class Main extends PluginBase {
 				}
 			}
 
-			$sender->getWorld()->setBlock($this->pos1, Block::get(Block::DIAMOND_BLOCK));
-			$sender->getWorld()->setBlock($this->pos2, Block::get(Block::EMERALD_BLOCK));
+			$sender->getWorld()->setBlock($this->pos1, VanillaBlocks::DIAMOND());
+			$sender->getWorld()->setBlock($this->pos2, VanillaBlocks::EMERALD());
 		}elseif($params[0] === 'repeat'){
 			if($this->pos1 === null || $this->pos2 === null){
 				return false;
