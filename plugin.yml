@@ -6,4 +6,7 @@ api: [4.0.0]
 commands:
     a*:
         usage: /a* <1|2|calculate|repeat|clear> [2d]
-        permission: a*
+        permission: astar
+permissions:
+    astar:
+        default: op
