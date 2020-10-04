@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace SalmonDE\PathfindingExample;
 
+use pocketmine\color\Color as Colour;
 use pocketmine\world\particle\DustParticle;
 use pocketmine\world\particle\LavaDripParticle;
 use pocketmine\scheduler\Task;
@@ -17,7 +18,7 @@ class PathVisualizerTask extends Task {
 		$this->pathfinder = $pathfinder;
 	}
 
-	public function onRun(int $ct): void{
+	public function onRun(): void{
 		$this->pathfinder->getAlgorithm()->resetPathResult();
 		$this->pathfinder->findPath();
 		$path = $this->pathfinder->getPathResult();
@@ -32,10 +33,10 @@ class PathVisualizerTask extends Task {
 			$world->addParticle($pos->add(0.5, 0.5, 0.5), $particle);
 		}
 
-		$particle = new DustParticle(0, 0, 255);
+		$particle = new DustParticle(new Colour(0, 0, 255));
 		$world->addParticle($this->pathfinder->getAlgorithm()->getStartPos()->add(0.5, 0.5, 0.5), $particle);
 
-		$particle = new DustParticle(0, 255, 0);
+		$particle = new DustParticle(new Colour(0, 255, 0));
 		$world->addParticle($this->pathfinder->getAlgorithm()->getTargetPos()->add(0.5, 0.5, 0.5), $particle);
 	}
 }
