@@ -106,7 +106,6 @@ class Main extends PluginBase {
 		}
 
 		$this->lastPathResult = null;
-		$this->lastPathWorld = null;
 
 		if($this->lastPathWorld->getBlock($this->pos1)->getId() === Ids::DIAMOND_BLOCK){
 			$this->lastPathWorld->setBlock($this->pos1, VanillaBlocks::AIR());
@@ -115,6 +114,8 @@ class Main extends PluginBase {
 		if($this->lastPathWorld->getBlock($this->pos2)->getId() === Ids::EMERALD_BLOCK){
 			$this->lastPathWorld->setBlock($this->pos2, VanillaBlocks::AIR());
 		}
+
+		$this->lastPathWorld = null;
 	}
 
 	public function onDisable(): void{
